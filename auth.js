@@ -1,11 +1,8 @@
 
-  // Import the functions you need from the SDKs you need
+  
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-  import { getAuth ,createUserWithEmailAndPassword,signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
+  import { getAuth ,createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  
   const firebaseConfig = {
     apiKey: "AIzaSyADQSZ3KKSZXJgcdzRMLxeQvWWVCgBcZ-Q",
     authDomain: "login-info-36ebe.firebaseapp.com",
@@ -18,46 +15,26 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app); 
+  
+  const signup = document.querySelector('#Sbtn');
+  signup.addEventListener('click',(e)=>{
+   e.preventDefault()
+   const email = document.getElementById("email").value
+   const password = document.getElementById("password").value
 
-  //function to get value of user of signup page 
-  function signupUser(){
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed up 
+   createUserWithEmailAndPassword(auth, email, password)
+   .then((userCredential) => {
+    
     const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
+    alert("Account created")
+    window.location.href="login.html"
+   
+   })
+   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    // ..
     alert(errorMessage)
-  });
+    // ..
+    });
 
-  }
-  
- const signup = document.getElementById("Signup");
- signup.addEventListener('click',signupUser);
-
- function signInUser(){
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage)
-      });
-      window.location.href = 'login.html';
-
-  }
-
-  const Login = document.getElementById("Login");
- signup.addEventListener('click',signInUser);
+  })
